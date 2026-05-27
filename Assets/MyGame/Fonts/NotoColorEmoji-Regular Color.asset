@@ -80,7 +80,13 @@ MonoBehaviour:
     m_Height: 1024
   m_FontFeatureTable:
     m_MultipleSubstitutionRecords: []
-    m_LigatureSubstitutionRecords: []
+    m_LigatureSubstitutionRecords:
+    - m_ComponentGlyphIDs: 9a0f00005b0a0000
+      m_LigatureGlyphID: 2649
+    - m_ComponentGlyphIDs: 020d00005b0a0000
+      m_LigatureGlyphID: 2640
+    - m_ComponentGlyphIDs: bd0a00005b0a0000
+      m_LigatureGlyphID: 2643
     m_GlyphPairAdjustmentRecords: []
     m_MarkToBaseAdjustmentRecords: []
     m_MarkToMarkAdjustmentRecords: []
@@ -223,7 +229,7 @@ Texture2D:
   m_ColorSpace: 1
   m_PlatformBlob: 
   image data: 4
-  _typelessdata: cdcdcdcd
+  _typelessdata: 00000000
   m_StreamData:
     serializedVersion: 2
     offset: 0
