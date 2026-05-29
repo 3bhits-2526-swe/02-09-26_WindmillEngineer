@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class StartGame : MonoBehaviour
 {
     // Muss public sein, damit der Button sie im Inspector sehen kann
-    public void LoadGameScene() 
+    public static void LoadGameScene() 
     {
         SceneManager.LoadScene("Game");
     }
