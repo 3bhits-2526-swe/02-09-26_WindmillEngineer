@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,12 +11,15 @@ public class GameManager : MonoBehaviour
 
 
 
-    [Header("UI Bars")]
+    [Header("UI")]
     public Image demandBar;
     public Image supplyBar;
     public Image batteryBar;
+    public TextMeshProUGUI moneyText;
+
     [Header("Other Variables")]
     public float demandTimer;
+    public int money;
 
 
     void Start()
@@ -26,7 +30,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CalcDemand();        
+        CalcDemand();
+        RenderMoney();
     }
     
     public void CalcDemand()
@@ -40,5 +45,9 @@ public class GameManager : MonoBehaviour
             demandTimer = 0f;
         }
         
+    }
+    public void RenderMoney()
+    {
+        moneyText.text = "Money: $" + money.ToString();
     }
 }
