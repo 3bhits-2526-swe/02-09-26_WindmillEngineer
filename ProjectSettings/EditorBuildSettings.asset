@@ -9,16 +9,16 @@ EditorBuildSettings:
     path: Assets/MyGame/Scenes/StartMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Game.unity
+    path: Assets/MyGame/Scenes/Game.unity
     guid: 411be7edb762e2b44afee0d0ca3ae96a
   - enabled: 1
-    path: Assets/Scenes/StartMenu.unity
+    path: Assets/MyGame/Scenes/StartMenu.unity
     guid: ccbc18fd495d84146a7775f80b12251e
   - enabled: 1
-    path: Assets/Scenes/Credits.unity
+    path: Assets/MyGame/Scenes/Credits.unity
     guid: 4881868b096cc404da66f99285236fb3
   - enabled: 1
-    path: Assets/Scenes/WinScreen.unity
+    path: Assets/MyGame/Scenes/WinScreen.unity
     guid: b4dc4f8aac45d7e4abc195135405dad2
   - enabled: 1
     path: Assets/Scenes/Credit(win).unity
