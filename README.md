@@ -1,17 +1,7 @@
 # Windrad-System - Virtual Engineering Konzept
 
 **Name / Gruppe:** Our Whole World  
-## Teammitglieder
-
-- Wolf Fabian
-- Auer Manuel
-- Forster Laurin
-
----
-
-## Pitch
-
-Windrad-System ist eine interaktive Simulation eines Stromnetzes. Die Spieler müssen defekte Windräder reparieren, um die Energieversorgung aufrechtzuerhalten und einen zentralen Akku vollständig aufzuladen. Das Projekt zeigt die Herausforderungen von Energieerzeugung, Wartung und Netzstabilität auf spielerische Weise.
+**Mitglieder:** Wolf Fabian, Auer Manuel, Forster Laurin
 
 ---
 
@@ -35,18 +25,6 @@ Unser System simuliert den Supply und Demand eines Stromnetzes mit einer angesch
 
 ---
 
-## MVP
-
-Der aktuelle MVP umfasst:
-
-- Mehrere Windräder mit zufälligen Ausfällen
-- Reparaturmechanik für defekte Windräder
-- Simulation von Stromangebot und Stromnachfrage
-- Akku als Energiespeicher
-- Gewinnbedingung bei vollständig geladenem Akku
-- Verlustbedingung bei leerem Akku und zu geringer Stromproduktion
-
----
 ## 4. Virtual Engineering Anteil
 Folgende Virtual Engineering Komponenten sind Teil des Projekts:
 * [x] Anzeige (Dashboard / Unity)
