@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("Configurable Variables")]
 
     public float demandTimerMax;
+    public float windTimerMax;
 
 
 
@@ -15,22 +16,27 @@ public class GameManager : MonoBehaviour
     public Image demandBar;
     public Image supplyBar;
     public Image batteryBar;
+    public Image windBar;
     public TextMeshProUGUI moneyText;
 
     [Header("Other Variables")]
     public float demandTimer;
+    public float windTimer;
+    public float windLevel;
     public int money;
 
 
     void Start()
     {
-        CalcDemand();
+        demandTimer = demandTimerMax;
+        windTimer = windTimerMax;
     }
 
     // Update is called once per frame
     void Update()
     {
         CalcDemand();
+        CalcWind();
         RenderMoney();
     }
     
@@ -49,5 +55,15 @@ public class GameManager : MonoBehaviour
     public void RenderMoney()
     {
         moneyText.text = "Money: $" + money.ToString();
+    }
+    public void CalcWind()
+    {
+        windTimer += Time.deltaTime;
+        if (windTimer >= windTimerMax)
+        {
+            windLevel = UnityEngine.Random.Range(0f, 1f);
+            windBar.fillAmount = windLevel;
+            windTimer = 0f;
+        }
     }
 }
