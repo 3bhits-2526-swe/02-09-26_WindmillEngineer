@@ -58,8 +58,8 @@ public class GameManager : MonoBehaviour
         windTimer += Time.deltaTime;
         if (windTimer >= windTimerMax)
         {
-            windLevel = new Vector2(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
-            windBar.fillAmount = windLevel.magnitude / Mathf.Sqrt(2f);
+            windLevel = UnityEngine.Random.insideUnitCircle.normalized;
+            windBar.fillAmount = windLevel.magnitude;
             windTimer = 0f;
         }
     }
