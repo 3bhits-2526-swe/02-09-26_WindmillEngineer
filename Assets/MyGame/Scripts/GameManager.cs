@@ -6,34 +6,31 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [Header("Configurable Variables")]
+
     public float demandTimerMax;
-    public float windTimerMax;
+
+
 
     [Header("UI")]
     public Image demandBar;
     public Image supplyBar;
     public Image batteryBar;
-    public Image windBar;
     public TextMeshProUGUI moneyText;
 
     [Header("Other Variables")]
     public float demandTimer;
-    public float windTimer;
-    public Vector2 windLevel;
     public int money;
 
 
     void Start()
     {
-        demandTimer = demandTimerMax;
-        windTimer = windTimerMax;
+        CalcDemand();
     }
 
     // Update is called once per frame
     void Update()
     {
         CalcDemand();
-        CalcWind();
         RenderMoney();
     }
     
