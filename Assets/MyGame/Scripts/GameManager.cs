@@ -6,11 +6,8 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [Header("Configurable Variables")]
-
     public float demandTimerMax;
     public float windTimerMax;
-
-
 
     [Header("UI")]
     public Image demandBar;
@@ -22,7 +19,7 @@ public class GameManager : MonoBehaviour
     [Header("Other Variables")]
     public float demandTimer;
     public float windTimer;
-    public float windLevel;
+    public Vector2 windLevel;
     public int money;
 
 
@@ -61,8 +58,8 @@ public class GameManager : MonoBehaviour
         windTimer += Time.deltaTime;
         if (windTimer >= windTimerMax)
         {
-            windLevel = UnityEngine.Random.Range(0f, 1f);
-            windBar.fillAmount = windLevel;
+            windLevel = new Vector2(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+            windBar.fillAmount = windLevel.magnitude / Mathf.Sqrt(2f);
             windTimer = 0f;
         }
     }
