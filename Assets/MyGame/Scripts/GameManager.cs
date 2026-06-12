@@ -48,6 +48,16 @@ public class GameManager : MonoBehaviour
     }
     public void RenderMoney()
     {
-        moneyText.text = "Money: $" + money.ToString();
+        moneyText.text = "$" + money.ToString();
+    }
+    public void CalcWind()
+    {
+        windTimer += Time.deltaTime;
+        if (windTimer >= windTimerMax)
+        {
+            windLevel = UnityEngine.Random.insideUnitCircle.normalized;
+            windBar.fillAmount = (Mathf.Abs(windLevel.x) + Mathf.Abs(windLevel.y)) / 2f;
+            windTimer = 0f;
+        }
     }
 }
