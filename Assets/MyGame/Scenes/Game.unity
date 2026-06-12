@@ -2250,6 +2250,7 @@ RectTransform:
   - {fileID: 782197374}
   - {fileID: 871279546}
   - {fileID: 1497111082}
+  - {fileID: 187438343}
   m_Father: {fileID: 1153980861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2660,7 +2661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1637310217
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2898,9 +2899,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   demandTimerMax: 20
+  windTimerMax: 30
   demandBar: {fileID: 871279547}
   supplyBar: {fileID: 782197375}
   batteryBar: {fileID: 1497111080}
+  windBar: {fileID: 187438345}
   moneyText: {fileID: 902322551}
   demandTimer: 5
   windTimer: 0
