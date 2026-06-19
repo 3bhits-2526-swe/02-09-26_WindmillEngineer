@@ -6,6 +6,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [Header("Demand")]
+    public float demand = 0f;
     public float demandTimerMax;
     public float demandTimer;
     public Image demandBar;
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Akku")]
     public Image AkkuBar;
     public float currentAkku = 45f;
-    public float AkkuDischargeSpeed = 2.25f;
+    public float AkkuDischargeSpeed = 1f;
     public float standardAkkuChargeSpeed = 3.2f;
     
     [Header("Money")]
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         InvokeRepeating(nameof(UpdateAkku), 0f, 1f);
         InvokeRepeating(nameof(CalcMoney), 0f, 1f);
         InvokeRepeating(nameof(RenderMoney), 0f, 1f);
+        InvokeRepeating(nameof(CalcDemand), 0f, 5f);
 
         HideScreen(winScreen);
         HideScreen(loseScreen);
@@ -54,19 +56,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        CalcDemand();
         CalcWind();
     }
     
     public void CalcDemand()
     {
-        demandTimer += Time.deltaTime;
-        if (demandTimer >= demandTimerMax)
-        {
-            float demand = UnityEngine.Random.Range(0f, 1f);
-            demandBar.fillAmount = demand;
-            demandTimer = 0f;
-        }
+        float randnr = UnityEngine.Random.Range(0f, 2f);
+        demand = randnr * 0.1f;
+        demandBar.fillAmount = demand *50;
     }
 
     public void RenderMoney()
@@ -87,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateAkku()
     {
-        currentAkku -= AkkuDischargeSpeed;
+        currentAkku -= AkkuDischargeSpeed * (demand*10);
         
         float windStrength = (Mathf.Abs(windLevel.x) + Mathf.Abs(windLevel.y)) / 2f;
         currentAkku += activWindmills * standardAkkuChargeSpeed * windStrength;
@@ -137,7 +134,7 @@ public class GameManager : MonoBehaviour
 
         else if(AkkuDischargeSpeed < (activWindmills * standardAkkuChargeSpeed * windStrength))
             reductionPersentage = 0;
-            
+
         money += increment - (increment* (reductionPersentage/100));
     }
 }
