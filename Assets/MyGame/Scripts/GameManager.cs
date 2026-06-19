@@ -26,10 +26,12 @@ public class GameManager : MonoBehaviour
     public Image AkkuBar;
     public float currentAkku = 45f;
     public float AkkuDischargeSpeed = 2.25f;
-    public float standardAkkuChargeSpeed = 1.50f;
+    public float standardAkkuChargeSpeed = 3.2f;
     
     [Header("Money")]
     public float money;
+    public float reductionPersentage = 100;
+    public float increment = 12.25f;
     public TextMeshProUGUI moneyText;
 
     [Header("Screen")]
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour
         windTimer = windTimerMax;
         
         InvokeRepeating(nameof(UpdateAkku), 0f, 1f);
+        InvokeRepeating(nameof(CalcMoney), 0f, 1f);
+        InvokeRepeating(nameof(RenderMoney), 0f, 1f);
 
         HideScreen(winScreen);
         HideScreen(loseScreen);
@@ -52,7 +56,6 @@ public class GameManager : MonoBehaviour
     {
         CalcDemand();
         CalcWind();
-        RenderMoney();
     }
     
     public void CalcDemand()
@@ -89,8 +92,6 @@ public class GameManager : MonoBehaviour
         float windStrength = (Mathf.Abs(windLevel.x) + Mathf.Abs(windLevel.y)) / 2f;
         currentAkku += activWindmills * standardAkkuChargeSpeed * windStrength;
 
-        money += 12.8f;
-
         AkkuBar.fillAmount = currentAkku / 100f;
 
         if (currentAkku >= 100f)
@@ -122,6 +123,28 @@ public class GameManager : MonoBehaviour
         if (screen != null)
         {
             screen.SetActive(false);
+        }
+    }
+
+    public void CalcMoney()
+    {
+        float windStrength = (Mathf.Abs(windLevel.x) + Mathf.Abs(windLevel.y)) / 2f;
+        if(AkkuDischargeSpeed > (activWindmills * standardAkkuChargeSpeed * windStrength))
+        {
+            reductionPersentage = 200;
+            money += increment - (increment* (reductionPersentage/100));
+
+        } else if(AkkuDischargeSpeed == (activWindmills * standardAkkuChargeSpeed * windStrength))
+        {
+    
+            reductionPersentage = 100;
+            money += increment - (increment* (reductionPersentage/100));
+
+
+        }else if(AkkuDischargeSpeed < (activWindmills * standardAkkuChargeSpeed * windStrength))
+        {
+            reductionPersentage = 0;
+            money += increment - (increment* (reductionPersentage/100));
         }
     }
 }

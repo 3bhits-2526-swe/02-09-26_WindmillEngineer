@@ -2911,7 +2911,9 @@ MonoBehaviour:
   currentAkku: 45
   AkkuDischargeSpeed: 2.25
   standardAkkuChargeSpeed: 1.5
-  money: 10
+  money: 120
+  reductionPersentage: 100
+  increment: 12.25
   moneyText: {fileID: 902322551}
   gameScreen: {fileID: 1449242713}
   winScreen: {fileID: 1637310216}
