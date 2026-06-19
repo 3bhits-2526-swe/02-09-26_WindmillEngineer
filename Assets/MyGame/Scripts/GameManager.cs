@@ -130,21 +130,14 @@ public class GameManager : MonoBehaviour
     {
         float windStrength = (Mathf.Abs(windLevel.x) + Mathf.Abs(windLevel.y)) / 2f;
         if(AkkuDischargeSpeed > (activWindmills * standardAkkuChargeSpeed * windStrength))
-        {
             reductionPersentage = 200;
-            money += increment - (increment* (reductionPersentage/100));
 
-        } else if(AkkuDischargeSpeed == (activWindmills * standardAkkuChargeSpeed * windStrength))
-        {
-    
+        else if(AkkuDischargeSpeed == (activWindmills * standardAkkuChargeSpeed * windStrength))
             reductionPersentage = 100;
-            money += increment - (increment* (reductionPersentage/100));
 
-
-        }else if(AkkuDischargeSpeed < (activWindmills * standardAkkuChargeSpeed * windStrength))
-        {
+        else if(AkkuDischargeSpeed < (activWindmills * standardAkkuChargeSpeed * windStrength))
             reductionPersentage = 0;
-            money += increment - (increment* (reductionPersentage/100));
-        }
+            
+        money += increment - (increment* (reductionPersentage/100));
     }
 }
