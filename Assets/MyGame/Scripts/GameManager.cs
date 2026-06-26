@@ -6,8 +6,8 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [Header("Demand")]
+    public float demand = 0f;
     public float demandTimerMax;
-    public float demandTimer;
     public Image demandBar;
 
     [Header("Wind")]
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public Vector2 windLevel;
 
     [Header("Windmill")]
-    public int activWindmills = 1;
+    public int activeWindmills = 5;
 
     [Header("Supply")]
     public Image supplyBar;
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [Header("Akku")]
     public Image AkkuBar;
     public float currentAkku = 45f;
-    public float AkkuDischargeSpeed = 2.25f;
+    public float AkkuDischargeSpeed = 1f;
     public float standardAkkuChargeSpeed = 3.2f;
     
     [Header("Money")]
@@ -41,12 +41,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        demandTimer = demandTimerMax;
         windTimer = windTimerMax;
         
         InvokeRepeating(nameof(UpdateAkku), 0f, 1f);
         InvokeRepeating(nameof(CalcMoney), 0f, 1f);
         InvokeRepeating(nameof(RenderMoney), 0f, 1f);
+        InvokeRepeating(nameof(CalcDemand), 0f, demandTimerMax);
 
         HideScreen(winScreen);
         HideScreen(loseScreen);
@@ -54,20 +54,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        CalcDemand();
         CalcWind();
     }
     
     public void CalcDemand()
     {
-        demandTimer += Time.deltaTime;
-        if (demandTimer >= demandTimerMax)
-        {
-            float demand = UnityEngine.Random.Range(0f, 1f);
-            demandBar.fillAmount = demand;
-            demandTimer = 0f;
-        }
+        float randnr = UnityEngine.Random.Range(0f, 1f);
+        demandBar.fillAmount = randnr;
+        demand = randnr;
+        
     }
+
 
     public void RenderMoney()
     {
@@ -87,10 +84,10 @@ public class GameManager : MonoBehaviour
 
     public void UpdateAkku()
     {
-        currentAkku -= AkkuDischargeSpeed;
+        currentAkku -= AkkuDischargeSpeed * (demand*10);
         
         float windStrength = (Mathf.Abs(windLevel.x) + Mathf.Abs(windLevel.y)) / 2f;
-        currentAkku += activWindmills * standardAkkuChargeSpeed * windStrength;
+        currentAkku += activeWindmills * standardAkkuChargeSpeed * windStrength;
 
         AkkuBar.fillAmount = currentAkku / 100f;
 
@@ -129,15 +126,15 @@ public class GameManager : MonoBehaviour
     public void CalcMoney()
     {
         float windStrength = (Mathf.Abs(windLevel.x) + Mathf.Abs(windLevel.y)) / 2f;
-        if(AkkuDischargeSpeed > (activWindmills * standardAkkuChargeSpeed * windStrength))
+        if(AkkuDischargeSpeed > (activeWindmills * standardAkkuChargeSpeed * windStrength))
             reductionPersentage = 200;
 
-        else if(AkkuDischargeSpeed == (activWindmills * standardAkkuChargeSpeed * windStrength))
+        else if(AkkuDischargeSpeed == (activeWindmills * standardAkkuChargeSpeed * windStrength))
             reductionPersentage = 100;
 
-        else if(AkkuDischargeSpeed < (activWindmills * standardAkkuChargeSpeed * windStrength))
+        else if(AkkuDischargeSpeed < (activeWindmills * standardAkkuChargeSpeed * windStrength))
             reductionPersentage = 0;
-            
+
         money += increment - (increment* (reductionPersentage/100));
     }
 }
