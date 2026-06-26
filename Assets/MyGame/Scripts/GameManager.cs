@@ -5,23 +5,25 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Demand")]
-    public float demand = 0f;
+    [Header("Configurable Variables")]
     public float demandTimerMax;
+    public float windTimerMax;
+
+    [Header("UI")]
     public Image demandBar;
     public Image supplyBar;
     public Image batteryBar;
     public Image windArrow;
     public TextMeshProUGUI windLevelIndicator;
 
-    [Header("Wind")]
-    public float windTimerMax;
-    public Image windBar;
+    [Header("Other Variables")]
+    public float demandTimer;
     public float windTimer;
     public Vector2 windDirection;
     public float windLevel;
     public float money;
 
+<<<<<<< HEAD
     [Header("Windmill")]
     public int activeWindmills = 5;
 
@@ -42,22 +44,19 @@ public class GameManager : MonoBehaviour
     public GameObject gameScreen;
     public GameObject winScreen;
     public GameObject loseScreen;
+=======
+>>>>>>> parent of 26ac51b (Merge branch 'main' into winbar-design-#23)
 
     void Start()
     {
+        demandTimer = demandTimerMax;
         windTimer = windTimerMax;
-        
-        InvokeRepeating(nameof(UpdateAkku), 0f, 1f);
-        InvokeRepeating(nameof(CalcMoney), 0f, 1f);
-        InvokeRepeating(nameof(RenderMoney), 0f, 1f);
-        InvokeRepeating(nameof(CalcDemand), 0f, demandTimerMax);
-
-        HideScreen(winScreen);
-        HideScreen(loseScreen);
     }
 
+    // Update is called once per frame
     void Update()
     {
+        CalcDemand();
         CalcWind();
         RenderMoney();
         RenderWind();
@@ -65,18 +64,20 @@ public class GameManager : MonoBehaviour
     
     public void CalcDemand()
     {
-        float randnr = UnityEngine.Random.Range(0f, 1f);
-        demandBar.fillAmount = randnr;
-        demand = randnr;
+        demandTimer += Time.deltaTime;
+        if (demandTimer >= demandTimerMax)
+        {
+            float demand = 0;
+            demand = UnityEngine.Random.Range(0f, 1f);
+            demandBar.fillAmount = demand;
+            demandTimer = 0f;
+        }
         
     }
-
-
     public void RenderMoney()
     {
         moneyText.text = "$" + money.ToString();
     }
-
     public void CalcWind()
     {
         windTimer += Time.deltaTime;
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
         float arrowScale = Mathf.Lerp(0.2f, 1.2f, Mathf.Clamp01(windLevel));
         windArrow.rectTransform.localScale = new Vector3(arrowScale, arrowScale, windArrow.rectTransform.localScale.z);
         windArrow.rectTransform.rotation = Quaternion.Euler(0, 0, angle);
+<<<<<<< HEAD
         windLevelIndicator.text = (windLevel * 100f).ToString("F0") + "%";        
     }
 
@@ -150,5 +152,8 @@ public class GameManager : MonoBehaviour
             reductionPercentage = 0;
 
         money += increment - (increment * reductionPercentage / 100);
+=======
+        windLevelIndicator.text = (windLevel * 100f).ToString("F0") + "%";
+>>>>>>> parent of 26ac51b (Merge branch 'main' into winbar-design-#23)
     }
 }
