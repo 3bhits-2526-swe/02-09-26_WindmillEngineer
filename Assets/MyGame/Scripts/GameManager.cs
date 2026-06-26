@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Image batteryBar;
     public Image windArrow;
     public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI windLevelIndicator;
 
     [Header("Other Variables")]
     public float demandTimer;
@@ -69,8 +70,9 @@ public class GameManager : MonoBehaviour
     public void RenderWind()
     {
         float angle = Mathf.Atan2(windDirection.y, windDirection.x) * Mathf.Rad2Deg;
-        float arrowScale = Mathf.Clamp01(windLevel);
+        float arrowScale = Mathf.Lerp(0.2f, 1.2f, Mathf.Clamp01(windLevel));
         windArrow.rectTransform.localScale = new Vector3(arrowScale, arrowScale, windArrow.rectTransform.localScale.z);
         windArrow.rectTransform.rotation = Quaternion.Euler(0, 0, angle);
+        windLevelIndicator.text = (windLevel * 100f).ToString("F0") + "%";
     }
 }
