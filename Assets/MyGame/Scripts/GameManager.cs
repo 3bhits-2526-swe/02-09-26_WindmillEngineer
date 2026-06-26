@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
     public void RenderWind()
     {
         float angle = Mathf.Atan2(windDirection.y, windDirection.x) * Mathf.Rad2Deg;
+        float arrowScale = Mathf.Clamp01(windLevel);
+        windArrow.rectTransform.localScale = new Vector3(arrowScale, arrowScale, windArrow.rectTransform.localScale.z);
         windArrow.rectTransform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }
