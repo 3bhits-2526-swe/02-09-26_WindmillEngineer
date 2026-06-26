@@ -9,12 +9,19 @@ public class GameManager : MonoBehaviour
     public float demand = 0f;
     public float demandTimerMax;
     public Image demandBar;
+    public Image supplyBar;
+    public Image batteryBar;
+    public Image windArrow;
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI windLevelIndicator;
 
     [Header("Wind")]
     public float windTimerMax;
     public Image windBar;
     public float windTimer;
-    public Vector2 windLevel;
+    public Vector2 windDirection;
+    public float windLevel;
+    public int money;
 
     [Header("Windmill")]
     public int activeWindmills = 5;
@@ -55,6 +62,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         CalcWind();
+        RenderMoney();
+        RenderWind();
     }
     
     public void CalcDemand()
@@ -76,6 +85,21 @@ public class GameManager : MonoBehaviour
         windTimer += Time.deltaTime;
         if (windTimer >= windTimerMax)
         {
+            windLevel = UnityEngine.Random.Range(0f, 1f);
+            windDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+            float angle = Mathf.Atan2(windDirection.y, windDirection.x) * Mathf.Rad2Deg;
+            windTimer = 0f;
+        }
+    }
+    public void RenderWind()
+    {
+        float angle = Mathf.Atan2(windDirection.y, windDirection.x) * Mathf.Rad2Deg;
+        float arrowScale = Mathf.Lerp(0.2f, 1.2f, Mathf.Clamp01(windLevel));
+        windArrow.rectTransform.localScale = new Vector3(arrowScale, arrowScale, windArrow.rectTransform.localScale.z);
+        windArrow.rectTransform.rotation = Quaternion.Euler(0, 0, angle);
+        windLevelIndicator.text = (windLevel * 100f).ToString("F0") + "%";
+    }
+}
             windLevel = UnityEngine.Random.insideUnitCircle;
             windBar.fillAmount = (Mathf.Abs(windLevel.x) + Mathf.Abs(windLevel.y)) / 2f;
             windTimer = 0f;
